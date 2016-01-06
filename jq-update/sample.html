@@ -1,0 +1,46 @@
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.jqueryplugin.js"></script>
+
+
+    </head>
+    <body>
+    <center>
+                        <div id="chartContainer">FusionCharts XT will load here!</div>
+
+                        <script type="text/javascript">
+							var dataString ='<chart caption="Monthly revenue for last year" subcaption="Harry&#39;s SuperMart" xaxisname="Month" yaxisname="Revenues (In USD)" numberprefix="$" palettecolors="#0075c2" bgcolor="#ffffff" borderalpha="20" canvasborderalpha="0" useplotgradientcolor="0" plotborderalpha="10" placevaluesinside="1" rotatevalues="1" valuefontcolor="#ffffff" showxaxisline="1" xaxislinecolor="#999999" divlinecolor="#999999" divlineisdashed="1" showalternatehgridcolor="0" subcaptionfontbold="0" subcaptionfontsize="14" >\n\
+								<set label="Jan" value="420000" />\n\
+								<set label="Feb" value="810000" />\n\
+								<set label="Mar" value="720000" />\n\
+								<set label="Apr" value="550000" />\n\
+								<set label="May" value="910000" />\n\
+								<set label="Jun" value="510000" />\n\
+							</chart>';
+														
+							function updateChartjson()
+							{
+								$("#chartContainer").updateFusionCharts({ dataFormat:"jsonurl", dataSource:"http://fc.gagansikri.in/workspace/Codebase/jQuerySamples/jq-update/data.json" });
+							}
+							
+							function updateChartxml()
+							{
+								$("#chartContainer").updateFusionCharts({ dataFormat:"xmlurl", dataSource:"http://fc.gagansikri.in/workspace/Codebase/jQuerySamples/jq-update/data.xml" });
+							}
+
+							$("#chartContainer").insertFusionCharts({type: "Column2D", dataSource: dataString, dataFormat: "xml", width: "400", height: "300", id: "myChartID"});
+						
+						
+
+                            
+                        </script>
+					<input id="div1" type="button" onclick="updateChartjson()" value="Update Chart data (JSON)" />
+					<input id="div1" type="button" onclick="updateChartxml()" value="Update Chart data (XML)" />
+   </center> </body>
+    
+</html>

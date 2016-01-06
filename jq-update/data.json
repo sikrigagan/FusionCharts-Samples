@@ -1,0 +1,75 @@
+{
+  "chart": {
+    "caption": "Monthly revenue for last year",
+    "subcaption": "Harry's SuperMart",
+    "xaxisname": "Month",
+    "yaxisname": "Revenues (In USD)",
+    "numberprefix": "$",
+    "palettecolors": "#FF0000",
+    "bgcolor": "#ffffff",
+    "borderalpha": "20",
+    "canvasborderalpha": "0",
+    "useplotgradientcolor": "0",
+    "plotborderalpha": "10",
+    "placevaluesinside": "1",
+    "rotatevalues": "1",
+    "valuefontcolor": "#ffffff",
+    "showxaxisline": "1",
+    "xaxislinecolor": "#999999",
+    "divlinecolor": "#999999",
+    "divlineisdashed": "1",
+    "showalternatehgridcolor": "0",
+    "subcaptionfontbold": "0",
+    "subcaptionfontsize": "14"
+  },
+  "data": [
+    {
+      "label": "Jan",
+      "value": "420000"
+    },
+    {
+      "label": "Feb",
+      "value": "810000"
+    },
+    {
+      "label": "Mar",
+      "value": "720000"
+    },
+    {
+      "label": "Apr",
+      "value": "550000"
+    },
+    {
+      "label": "May",
+      "value": "910000"
+    },
+    {
+      "label": "Jun",
+      "value": "510000"
+    },
+    {
+      "label": "Jul",
+      "value": "680000"
+    },
+    {
+      "label": "Aug",
+      "value": "620000"
+    },
+    {
+      "label": "Sep",
+      "value": "610000"
+    },
+    {
+      "label": "Oct",
+      "value": "490000"
+    },
+    {
+      "label": "Nov",
+      "value": "900000"
+    },
+    {
+      "label": "Dec",
+      "value": "730000"
+    }
+  ]
+}
