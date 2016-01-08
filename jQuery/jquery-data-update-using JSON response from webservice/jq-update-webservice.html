@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>jQuery Data Update - Data from Web Service</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.jqueryplugin.js"></script>
+</head>
+<body>
+    <center>
+                        <div id="chartContainer">FusionCharts XT will load here!</div>
+<script type="text/javascript">
+
+//WebService Data
+       var webServiceData = function () {
+        var  i,
+            dataseries1 = [],
+            dataseries2 = [],
+            dataseries3 = [],
+            categories = [];
+           
+	//JSON Data obtained from web service
+        var jsonData = JSON.parse('[{ "Day":"Monday","Keith":30,"Erica":15, "George":25},{ "Day":"Tuesday","Keith":25,"Erica":25,"George":30},{ "Day":"Wednesday","Keith":30,"Erica":20,"George":25},{ "Day":"Thursday","Keith":35,"Erica":25,"George":45},{ "Day":"Friday","Keith":20,"Erica":20,"George":25},{ "Day":"Saturday","Keith":30,"Erica":20,"George":30},{ "Day":"Sunday","Keith":60,"Erica":45,"George":90}]');
+        
+        
+               for (var i in jsonData) {
+
+            var tmparray = jsonData[i];
+
+            categories.push({
+                label: tmparray.Day
+            });
+
+            dataseries1.push({
+                value: tmparray.Keith
+            });
+
+            dataseries2.push({
+                value: tmparray.Erica
+            });
+            
+						dataseries3.push({
+                value: tmparray.George
+            });
+
+        }
+
+        return {
+            categories: categories,
+            dataset: [{
+                seriesname: "Keith",
+                data: dataseries1
+            }, {
+                seriesname: "Erica",
+                data: dataseries2
+            },
+            {
+                seriesname: "George",
+                data: dataseries3
+            }]
+        };
+    };
+
+    var data = webServiceData();
+    
+    //String with updated JSON
+    chartjson={
+                "chart": {
+                    "caption": "Sales",
+                "subCaption": "Per Day Comparison",
+                "xAxisName": "Days",
+                "yAxisName": "Sales (In No's)"
+                },
+                    "categories": [{
+                    "category": data.categories
+                }],
+                    "dataset": data.dataset
+            };
+
+//Original Chart JSON String
+    var dataString ={
+            "chart": {
+                "caption": "Sales",
+                "subCaption": "Per Day Comparison",
+                "xAxisName": "Days",
+                "yAxisName": "Sales (In No's)"              
+            },
+
+            "categories": [{
+                "category": [{
+                    "label": "Monday"
+                }, {
+                    "label": "Tuesday"
+                }, {
+                    "label": "Wednesday"
+                }, ]
+            }],
+            "dataset": [{
+                "seriesname": "Keith",
+                    "data": [{
+                    "value": "30"
+                }, {
+                    "value": "25"
+                }, {
+                    "value": "30"
+                }]
+            }, {
+                "seriesname": "Erica",
+                    "data": [{
+                    "value": "15"
+                }, {
+                    "value": "25"
+                }, {
+                    "value": "20"
+                }]
+            },
+            {
+                "seriesname": "George",
+                    "data": [{
+                    "value": "25"
+                }, {
+                    "value": "30"
+                }, {
+                    "value": "25"
+                }]
+            }]
+        };
+														
+						//Chart Update Function
+							function updateChartjson()
+							{
+								$("#chartContainer").updateFusionCharts({ dataFormat:"json", dataSource: chartjson });
+							}
+							
+							
+
+							$("#chartContainer").insertFusionCharts({type: "mscolumn2d", dataSource: dataString, dataFormat: "json", width: "500", height: "400", id: "myChartID"});
+						
+						
+
+                            
+                        </script>
+					<input id="div1" type="button" onclick="updateChartjson()" value="Update Chart data" />
+   </center>
+
+</body>
+</html>
