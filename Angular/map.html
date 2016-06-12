@@ -1,0 +1,89 @@
+<!doctype html>
+<html ng-app="MapApp">
+    <head>
+        <title>Angular - FusionCharts | Maps</title>
+        <!-- including FusionCharts JS files -->
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.maps.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.world.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.carbon.js"></script>
+        <!-- including Angular v1.5.1 -->
+        <script type="text/javascript" src="https://code.angularjs.org/1.5.1/angular.min.js"></script>
+        <!-- including FusionCharts Angular plugin -->
+        <script type="text/javascript" src="angular-fusioncharts.js"></script>
+        
+        <script type="text/javascript">
+            var app = angular.module('MapApp', ["ng-fusioncharts"]); // injecting ng-fusioncharts module
+			
+				app.controller('mapController', function($scope) { // controller for chart
+
+			  	$scope.dataSource =  {
+                    "chart": {
+                        "caption": "Global Population Density",
+                        "captionFontBold": "0",
+                        "captionFontSize": "28",
+                        "captionPadding": "20",
+                        "theme": "carbon",
+                        "showLabels": "1",
+                        "formatNumberScale": "0"
+                    },
+                    
+                    "colorrange": {
+                        "minvalue": "0",
+                        "startlabel": "Low",
+                        "endlabel": "High",
+                        "code": "#FF4411",
+                        "gradient": "1",
+                        "color": [{
+                            "maxvalue": "25",
+                            "code": "#FFDD44",
+                            "displayValue": "Median"
+                        }, {
+                            "maxvalue": "100",
+                            "code": "#6baa01"
+                        }]
+                    },
+                    
+                    "data": [{
+                        "id": "NA",
+                        "value": "22.1",
+                        "showLabel": "1",
+                        "displayValue": "Moderate"
+                    }, {
+                        "id": "SA",
+                        "value": "22.0",
+                        "showLabel": "1",
+                        "displayValue": "Moderate"
+                    }, {
+                        "id": "AS",
+                        "value": "95.0",
+                        "showLabel": "1",
+                        "displayValue": "Dense"
+                    }, {
+                        "id": "EU",
+                        "value": "72.5",
+                        "showLabel": "1",
+                        "displayValue": "Dense"
+                    }, {
+                        "id": "AF",
+                        "value": "33.7",
+                        "showLabel": "1",
+                        "displayValue": "Moderate"
+                    }, {
+                        "id": "AU",
+                        "value": "3.2",
+                        "showLabel": "1",
+                        "displayValue": "Sparse"
+                    }]
+                };
+			});	
+        </script>
+    </head>
+    <body>
+        <center>
+            <div ng-controller="mapController">
+            <fusioncharts id="map-container" width="100%" height="550" type="world" dataFormat='json' , dataSource="{{dataSource}}"></fusioncharts>
+            </div>
+        </center>
+    </body>
+</html>

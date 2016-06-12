@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app="XMLUrlApp">
+    <head>
+        <title>Angular - FusionCharts | XML URL Example</title>
+        <!-- including FusionCharts JS files -->
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.powercharts.js"></script>
+        <!-- including Angular v1.5.1 -->
+        <script type="text/javascript" src="https://code.angularjs.org/1.5.1/angular.min.js"></script>
+        <!-- including FusionCharts Angular plugin -->
+        <script type="text/javascript" src="angular-fusioncharts.js"></script>
+        <!-- including google fonts css -->
+        <link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>
+        
+        <script type="text/javascript">
+            var app = angular.module('XMLUrlApp', ["ng-fusioncharts"]); // injecting ng-fusioncharts module
+				app.controller('XMLUrlChartController', function($scope) { // controller for chart
+			});	
+        </script>
+    </head>
+    <body>
+        <center>
+            <div  ng-controller="XMLUrlChartController">
+		        <fusioncharts id="chartContainer" chartid="chart1" width="100%" height="450" type="splinearea" dataFormat= "xmlurl", dataSource="data.xml"></fusioncharts>
+			</div>
+        </center>
+    </body>
+</html>

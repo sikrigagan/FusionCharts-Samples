@@ -1,0 +1,73 @@
+<!doctype html>
+<html ng-app="SVGDefinitionChartApp">
+  <head>
+  <title>Angular - FusionCharts | Defining SVG Definition for charts when base tag is present</title>
+  <style type='text/css'>
+    .rn_ScreenReaderOnly{position:absolute; height:1px; left:-10000px; overflow:hidden; top:auto; width:1px;}
+    .rn_Hidden{display:none;}
+  </style>
+  <!-- including FusionCharts JS files -->
+  <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+  <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+  <!-- including Angular v1.5.1 -->
+  <script type="text/javascript" src="https://code.angularjs.org/1.5.1/angular.min.js"></script>
+  <!-- FusionCharts Angular plugin -->
+  <script type="text/javascript" src="angular-fusioncharts.js"></script>
+  
+  <script type="text/javascript">
+    var app = angular.module('SVGDefinitionChartApp', ["ng-fusioncharts"])
+  app.controller('BaseTagController', function($scope) {
+
+  // setting SVG sefinition for chart  
+  FusionCharts.options.SVGDefinitionURL='absolute';   
+ 
+  $scope.dataSource = {
+    "chart": {
+      "baseFontSize": "13",
+      "canvasTopMargin": "25",
+      "borderAlpha": "20",
+      "canvasBorderAlpha": "0",
+      "usePlotGradientColor": "0",
+      "showPlotBorder": "0",
+      "showXAxisLine": "1",
+      "xAxisLineColor": "#999999",
+      "divlineColor": "#999999",
+      "divLineIsDashed": "1",
+      "showAlternateHGridColor": "0",
+      "captionPadding": "25",
+      "captionFontBold": "0",
+      "divLineAlpha": "50",
+      "showCanvasBorder": "0",
+      "use3DLighting": "0",
+      "toolTipSepChar": " - ",
+      "showValues": "0",
+      "baseFont": "Helvetica",
+      "paletteColors": "#FFA500, #FFFF00, #0000FF, #008000, #800080"
+    },
+    "data": [{
+      "label": "Orange",
+      "value": "420000"
+    }, {
+      "label": "Yellow",
+      "value": "810000"
+    }, {
+      "label": "Blue",
+      "value": "730000"
+    }, {
+      "label": "Green",
+      "value": "620000"
+    }, {
+      "label": "Purple",
+      "value": "890000"
+    }]
+  };
+
+});
+  </script>
+  </head>
+  
+  <body ng-controller="BaseTagController">
+  <base href='http://walmartjump--tst1.custhelp.com/euf/rightnow/optimized/1417691890/themes/standard/'></base>
+  <div><fusioncharts  id="mychartcontainer" chartid="angularChart" width="425"  height="425" type="pie2d" dataSource="{{dataSource}}">Awesome Chart on its way!</fusioncharts></div>
+</body>
+</html>

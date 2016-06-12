@@ -1,0 +1,79 @@
+{
+  "chart": {
+    "caption": "Acme Holiday Club Weekly Visitors",
+    "captionPadding": "32",
+    "captionFontSize": "22",
+    "captionFontColor": "#EEF3F5",
+    "subCaption": "Week 33 (2015)",
+    "subCaptionFontSize": "16",
+    "baseFont": "Nunito",
+    "baseFontColor": "#CFD0D2",
+    "outCnvBaseFontColor": "#CFD0D2",
+    "baseFontSize": "14",
+    "outCnvBaseFontSize": "14",
+    "labelDisplay": "Auto",
+    "xAxisName": "Day",
+    "xAxisNameFontColor": "#EEF3F5",
+    "xAxisNameFontBold": "0",
+    "xAxisNameFontSize": "16",
+    "showXAxisLine": "0",
+    "yAxisName": "No. of Visitors",
+    "yAxisNameFontColor": "#EEF3F5",
+    "yAxisNameFontBold": "0",
+    "yAxisNameFontSize": "16",
+    "chartLeftMargin": "13",
+    "chartRightMargin": "10",
+    "chartTopMargin": "10",
+    "chartBottomMargin": "13",
+    "canvasPadding": "25",
+    "toolTipPadding": "10",
+    "toolTipBorderThickness": "1",
+    "ToolTipBorderRadius": "2",
+    "toolTipBorderAlpha": "60",
+    "toolTipBgColor": "#000000",
+    "toolTipBorderColor": "#FFFFFF",
+    "toolTipBgAlpha": "60",
+    "toolTipSepChar": ": ",
+    "toolTipColor": "#FFFFFF",
+    "drawAnchors": "1",
+    "anchorRadius": "6",
+    "anchorHoverEffect": "1",
+    "anchorBgColor": "#FAEEB5",
+    "anchorBorderThickness": "3",
+    "anchorTrackingRadius": "40",
+    "anchorHoverRadius": "8",
+    "showBorder": "0",
+    "formatNumberScale": "0",
+    "showValues": "0",
+    "bgColor": "#3E414A",
+    "bgAlpha": "100",
+    "canvasBgColor": "3E414A",
+    "canvasBgAlpha": "0",
+    "showCanvasBorder": "0",
+    "showAlternateHGridColor": "0",
+    "paletteColors": "#FBDB4A",
+    "usePlotGradientColor": "0"
+  },
+  "data": [{
+    "label": "Monday",
+    "value": "1200"
+  }, {
+    "label": "Tuesday",
+    "value": "1050"
+  }, {
+    "label": "Wednesday",
+    "value": "900"
+  }, {
+    "label": "Thursday",
+    "value": "1200"
+  }, {
+    "label": "Friday",
+    "value": "950"
+  }, {
+    "label": "Saturday",
+    "value": "1350"
+  }, {
+    "label": "Sunday",
+    "value": "1450"
+  }]
+}

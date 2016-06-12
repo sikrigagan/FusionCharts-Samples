@@ -1,0 +1,105 @@
+<!doctype html>
+<html ng-app="CustomTooltipChartApp">
+	<head>
+		<title>Angular - FusionCharts | Customizing Tooltips in Chart</title>
+		<!-- including FusionCharts JS files -->
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+		<!-- including Angular v1.5.1 -->
+		<script type="text/javascript" src="https://code.angularjs.org/1.5.1/angular.min.js"></script>
+		<!-- including FusionCharts Angular plugin -->
+		<script type="text/javascript" src="angular-fusioncharts.js"></script>
+        <!-- font -->
+        <link href='https://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+		
+		<script type="text/javascript">
+			var app = angular.module('CustomTooltipChartApp', ["ng-fusioncharts"]); // injecting ng-fusioncharts module
+			
+				app.controller('ChartController', function($scope) { // controller for chart
+
+			  	$scope.dataSource =  {
+			  		"chart": {
+                    "caption": "Goals Scored in Top 5 European Leagues",
+                    "captionFontBold": "0",
+                    "captionFontSize": "23",
+                    "captionPadding": "25",
+                    "subCaption": "Source: Squawka",
+                    "subCaptionFontBold": "0",
+                    "subCaptionFontSize": "17",
+                    "baseFont": "Oxygen",
+                    "baseFontSize": "13",
+                    "baseFontColor": "#FFFFFF",
+                    "outCnvBaseFontSize": "13",
+                    "outCnvBaseFontColor": "#FFFFFF",
+                    "animation": "1",
+                    "showHoverEffect": "1",
+                    "plotHoverEffect": "1",
+                    "exportEnabled": "1",
+                    "exportShowMenuItem": "0",
+                    "showBorder": "0",
+                    "plotSpacePercent": "20",
+                    "showPlotBorder": "0",
+                    "showValues": "0",
+                    "yAxisValuesPadding": "0",
+                    "usePlotGradientColor": "0",
+                    "bgColor": "#000000",
+                    "canvasBgColor": "#FF0000",
+                    "bgAlpha": "85",
+                    "canvasBgAlpha": "0",
+                    "canvasBorderAlpha": "0",
+                    "showAlternateHGridColor": "0",
+                    "plotFillAlpha": "80",
+                    "paletteColors": "#FFFFFF, #9C1737, #E30A17, #2E5DAD, #FF8029",
+                    "divLineDashed": "1",
+                    "divLineThickness": "0.7",
+                    "xAxisName": "Teams",
+                    "xAxisNameFontBold": "0",
+                    "xAxisNameFontSize": "18",
+                    "yAxisName": "# Goals",
+                    "yAxisNameFontBold": "0",
+                    "yAxisNameFontSize": "18",
+                    "yAxisMinValue": "40",
+                    "yAxisMaxValue": "100",
+                    
+                    // tooltip cosmetics
+                    "showToolTip": "1",
+                    "toolTipShadow": "1",
+                    "toolTipColor": "#e0e4e6",
+                    "toolTipBorderColor": "#e0e4e6",
+                    "toolTipBorderThickness": "1.73",
+                    "toolTipBgColor": "#000000",
+                    "toolTipBgAlpha": "80",
+                    "toolTipBorderRadius": "4",
+                    "toolTipPadding": "13",
+                    "plotToolText": "<div style='color: #FFFFFF; font-size: 16px; text-align: center; line-height: 1.73; letter-spacing: 1.5px;'>$label <br> $dataValue Goals</div>"
+                },
+                
+                "data": [
+                	{
+                        "label": "Real Madrid",
+                        "value": "87"
+                    }, {
+                        "label": "Barcelona",
+                        "value": "86"
+                    }, {
+                        "label": "PSG",
+                        "value": "77"
+                    }, {
+                        "label": "Bayern",
+                        "value": "65"
+                    }, {
+                        "label": "Roma",
+                        "value": "62"
+                    }]
+                };
+			});	
+		</script>
+	</head>
+	<body>
+		<center>
+	      	<div  ng-controller="ChartController">
+		        <fusioncharts id="chartContainer" chartid="chart1" width="100%" height="450" type="column2d" dataFormat= 'json', dataSource="{{dataSource}}"></fusioncharts>
+			</div>
+    	</center>
+	</body>
+</html>

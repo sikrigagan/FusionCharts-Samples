@@ -1,0 +1,111 @@
+<!doctype html>
+<html ng-app="MultiSeriesChartApp">
+	<head>
+		<title>Angular - FusionCharts | Simple Multi Series Chart</title>
+		<!-- including FusionCharts JS files -->
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+		<!-- including Angular v1.5.1 -->
+		<script type="text/javascript" src="https://code.angularjs.org/1.5.1/angular.min.js"></script>
+		<!-- including FusionCharts Angular plugin -->
+		<script type="text/javascript" src="angular-fusioncharts.js"></script>
+		
+		<script type="text/javascript">
+			var app = angular.module('MultiSeriesChartApp', ["ng-fusioncharts"]); // injecting ng-fusioncharts module
+			
+				app.controller('ChartController', function($scope) { // controller for chart
+
+			  	$scope.dataSource =  {
+      "chart": {
+        "caption": "Split of Sales by Product Category",
+        "yAxisname": "Sales (In USD)",
+        "numberPrefix": "$",
+        "paletteColors": "#28D8B2,#FBD046",
+        "bgColor": "#ffffff",
+        "showBorder": "0",
+        "showHoverEffect": "1",
+        "showCanvasBorder": "0",
+        "usePlotGradientColor": "0",
+        "plotBorderAlpha": "10",
+        "legendBorderAlpha": "0",
+        "legendShadow": "0",
+        "placevaluesInside": "1",
+        "valueFontColor": "#FA6B5B",
+        "showXAxisLine": "1",
+        "xAxisLineColor": "#999999",
+        "divlineColor": "#999999",
+        "divLineIsDashed": "1",
+        "yAxisNameFontSize": "13",
+        "yAxisNameFontBold": "0",
+        "showAlternateVGridColor": "0",
+        "captionFontBold": "0",
+        "captionFontSize": "18",
+        "plotFillAlpha": "85",
+        "captionPadding": "20",
+        "baseFontSize": "11",
+        "legendPadding": "20",
+        "legendItemFontSize": "13",
+        "canvasBgColor": "#0C1A1C",
+        "baseFontColor": "#F4F4F4",
+        "legendBorderAlpha": "0",
+        "legendBgAlpha": "0",
+        "canvasBgAlpha": "0",
+        "bgAlpha": "93",
+        "bgColor": "#0C1A1C",
+        "tooltipPadding": "13",
+        "tooltipBgColor": "#000000",
+        "tooltipBgAlpha": "60",
+        "plotToolText": "<div style='text-align: center; font-size: 13px; line-height: 1.5;'><strong>$seriesName</strong><br>$label: $dataValue</div>"
+      },
+      "categories": [{
+        "category": [{
+          "label": "Bakersfield<br/>Central"
+        }, {
+          "label": "Garden Groove<br/>Harbour"
+        }, {
+          "label": "Los Angeles<br/>Topanga"
+        }, {
+          "label": "Compton-Rancho<br/>Dom"
+        }, {
+          "label": "Daly City<br/>Serramonte"
+        }]
+      }],
+      "dataset": [{
+        "seriesname": "Food Products",
+        "data": [{
+          "value": "17000"
+        }, {
+          "value": "19500"
+        }, {
+          "value": "12500"
+        }, {
+          "value": "14500"
+        }, {
+          "value": "17500"
+        }]
+      }, {
+        "seriesname": "Non-Food Products",
+        "data": [{
+          "value": "25400"
+        }, {
+          "value": "29800"
+        }, {
+          "value": "21800"
+        }, {
+          "value": "19500"
+        }, {
+          "value": "11500"
+        }]
+      }]
+    };
+			});	
+		</script>
+	</head>
+	<body>
+		<center>
+	      	<div  ng-controller="ChartController">
+		        <fusioncharts id="chartContainer" chartid="chart1" width="600" height="500" type="msbar2d" dataFormat= 'json', dataSource="{{dataSource}}"></fusioncharts>
+			</div>
+    	</center>
+	</body>
+</html>
