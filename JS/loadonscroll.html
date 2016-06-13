@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <title>FusionCharts | Load Charts on Scroll</title>
+    <!-- adding FusionCharts package js files -->
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+    <!-- chart -->
+    <script type="text/javascript">
+        FusionCharts.ready(function () {
+             revenueChart = new FusionCharts({
+                    type: 'column2d',
+                    renderAt: 'chartContainer',
+                    width: '100%',
+                    height: '400',
+                    dataFormat: 'json',
+                    dataSource: {
+                        "chart": {
+                            "caption": "Monthly revenue for last year",
+                            "subCaption": "Harry's SuperMart",
+                            "xAxisName": "Month",
+                            "yAxisName": "Revenues (In USD)",
+                            "numberPrefix": "$",
+                            "paletteColors": "#0075c2",
+                            "bgColor": "#ffffff",
+                            "borderAlpha": "20",
+                            "canvasBorderAlpha": "0",
+                            "usePlotGradientColor": "0",
+                            "plotBorderAlpha": "10",
+                            "placevaluesInside": "1",
+                            "rotatevalues": "1",
+                            "valueFontColor": "#ffffff",                
+                            "showXAxisLine": "1",
+                            "xAxisLineColor": "#999999",
+                            "divlineColor": "#999999",               
+                            "divLineIsDashed": "1",
+                            "showAlternateHGridColor": "0",
+                            "subcaptionFontBold": "0",
+                            "subcaptionFontSize": "14",
+                            "plotSpacePercent": "33"
+                        },            
+                        "data": [
+                            {
+                                "label": "Jan",
+                                "value": "420000"
+                            }, 
+                            {
+                                "label": "Feb",
+                                "value": "810000"
+                            }, 
+                            {
+                                "label": "Mar",
+                                "value": "720000"
+                            }, 
+                            {
+                                "label": "Apr",
+                                "value": "550000"
+                            }, 
+                            {
+                                "label": "May",
+                                "value": "910000"
+                            }, 
+                            {
+                                "label": "Jun",
+                                "value": "510000"
+                            }, 
+                            {
+                                "label": "Jul",
+                                "value": "680000"
+                            }, 
+                            {
+                                "label": "Aug",
+                                "value": "620000"
+                            }, 
+                            {
+                                "label": "Sep",
+                                "value": "610000"
+                            }, 
+                            {
+                                "label": "Oct",
+                                "value": "490000"
+                            }, 
+                            {
+                                "label": "Nov",
+                                "value": "900000"
+                            }, 
+                            {
+                                "label": "Dec",
+                                "value": "730000"
+                            }
+                        ]
+                    }
+                });
+                
+                
+                function once(fn, context) { 
+                    var result;
+                    return function() { 
+                        if(fn) {
+                            result = fn.apply(context || this, arguments);
+                            fn = null;
+                        }
+                    return result;
+                    };
+                }
+       
+                window.onscroll = once(function (e) {  
+                    revenueChart.render(); // rendering chart on page scroll
+                });
+
+            });
+    </script>
+</head>
+<body>
+    <center>
+    <!-- dummy content -->
+    <img src="http://s33.postimg.org/5en77sr27/image.jpg" width="100%">
+    <h3>Scroll Down to load chart</h3>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <span>&#8595;</span><br>
+    <!-- chart -->
+    <div id="chartContainer">Chart will render here</div>
+    </center>
+</body>
+</html>
