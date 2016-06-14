@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>Real Time Charts</title>
+		<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+		<script type="text/javascript">
+		FusionCharts.ready(function() {
+           var processorChart=new FusionCharts({
+              	type: "realtimeline",
+                renderAt: "chart-container",
+                width: "100%",
+                height: "450",
+                dataFormat: "json",
+                dataSource: {
+                "chart": {
+                    "manageresize": "1",
+                    "bgcolor": "000000",
+                    "bgalpha": "100",
+                    "canvasborderthickness": "1",
+                    "canvasbordercolor": "008040",
+                    "canvasbgcolor": "000000",
+                    "yaxismaxvalue": "100",
+                    "decimals": "0",
+                    "numdivlines": "9",
+                    "numvdivlines": "28",
+                    "numdisplaysets": "30",
+                    "divlinecolor": "008040",
+                    "vdivlinecolor": "008040",
+                    "divlinealpha": "100",
+                    "chartleftmargin": "10",
+                    "baseFont": "Lato",
+                    "basefontcolor": "00dd00",
+                    "showrealtimevalue": "0",
+                    "datastreamurl": "datastream.php",
+                    "refreshinterval": "2",
+                    "numbersuffix": "%",
+                    "labeldisplay": "rotate",
+                    "slantlabels": "1",
+                    "basefontsize": "11",
+                    "showalternatehgridcolor": "0",
+                    "legendbgcolor": "000000",
+                    "legendbordercolor": "008040",
+                    "legendpadding": "35",
+                    "showlabels": "1",
+                    "showborder": "0",
+                    "drawCustomLegendIcon": "1",
+                    "legendIconBorderThickness": "8",
+                    "legendItemFontSize": "13",
+                    "legendBorderAlpha": "60",
+                    
+                    // tooltip configuration
+                    "toolTipBgColor": "#000",
+                    "toolTipPadding": "15",
+                    "toolTipBorderRadius": "3",
+                    "toolTipBorderThickness": "1",
+                    "toolTipBorderColor": "008040",
+                    "toolTipBgAlpha": "70",
+                    "showPercentValueInToolTip": "1",
+                    "toolTipFontSize": "20",
+                    "plotToolText": "<div style='color:#FFF; font-size: 16px; text-align:center; line-height: 1.8;'>$seriesname <br> $label: $value%</div>"
+                },
+                "categories": [
+                    {
+                        "category": [
+                            {
+                                "label": "Start"
+                            }
+                        ]
+                    }
+                ],
+                "dataset": [
+                    {
+                        "color": "00dd00",
+                        "seriesname": "Processor A",
+                        "showvalues": "0",
+                        "alpha": "100",
+                        "linethickness": "4",
+                        "drawAnchors": "1",
+                    	"anchorRadius": "4",
+                    	"anchorBgColor": "#00dd00",
+                        "data": [
+                            {
+                                "value": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "color": "ff5904",
+                        "seriesname": "Processor B",
+                        "showvalues": "0",
+                        "alpha": "100",
+                        "linethickness": "4",
+                        "drawAnchors": "1",
+                    	"anchorRadius": "4",
+                    	"anchorBgColor": "#ff5904",
+                        "data": [
+                            {
+                                "value": "0"
+                            }
+                        ]
+                    }
+                ]
+            }
+          }).render(); 
+        });
+		</script>
+	</head>
+	<body>
+		<div id="chart-container">Real time chart will render here</div>
+	</body>
+</html>
