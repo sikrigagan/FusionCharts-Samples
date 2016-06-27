@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FusionCharts | Creating Venn Diagram Chart</title>
+	<!-- adding FusionCharts package JS files -->
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+
+	<script type="text/javascript">
+		FusionCharts.ready(function() {
+    var vennDiagramChart = new FusionCharts({
+        type: 'scatter',
+        renderAt: 'venn-chartContainer',
+        width: '500',
+        height: '400',
+        dataFormat: 'json',
+        dataSource: {
+        "chart": {
+            "caption": "Distributed Service Access",
+            "showyaxisvalues": "0",
+            "showlabels": "0",
+            "numdivlines": "0",
+            "numvdivlines": "0",
+            "yaxismaxvalue": "100",
+            "xaxismaxvalue": "100",
+            "showvlimits": "0",
+            "setadaptivexmin": "0",
+            "anchorsides": "2",
+            "anchorborderthickness": "2",
+            "anchoralpha": "30",
+            "anchorborderalpha": "100",
+            "anchorbgalpha": "100",
+            "showvalues": "0",
+            "useroundedges": "1",
+            "legendposition": "right",
+            "animation": "0",
+            "plotToolText": "<div>$seriesName: $yValue</div>"
+        },
+        "dataset": [
+            {
+            "seriesname": "Server 1",
+            "color": "ff0000",
+            "anchorbgcolor": "ff0000",
+            "data": [
+                {
+                "y": "66",
+                "x": "40",
+                "anchorradius": "70"}
+            ]},
+        {
+            "seriesname": "Server 2",
+            "color": "0000ff",
+            "anchorbgcolor": "0000ff",
+            "data": [
+                {
+                "y": "66",
+                "x": "60",
+                "anchorradius": "70"}
+            ]},
+        {
+            "seriesname": "Server 3",
+            "color": "00ff00",
+            "anchorbgcolor": "00ff00",
+            "data": [
+                {
+                "y": "33",
+                "x": "50",
+                "anchorradius": "70"}
+            ]}
+        ]
+    }
+    }).render();
+});
+	</script>
+</head>
+<body>
+	<center>
+		<div id="venn-chartContainer">FusionCharts will render here</div>
+	</center>
+</body>
+</html>
