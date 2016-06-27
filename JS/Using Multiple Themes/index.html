@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FusionCharts | Using Multiple Themes in One Chart</title>
+	<!-- adding FusionCharts package JS files -->
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+
+	<!-- adding custom theme files -->
+	<script type="text/javascript" src="js/water.js"></script>
+	<script type="text/javascript" src="js/flat.js"></script>
+
+	<script type="text/javascript">
+		FusionCharts.ready(function() {
+		  var multiThemeChart = new FusionCharts({
+		    type: 'mscolumn2d',
+		    renderAt: 'chartContainer',
+		    width: '100%',
+		    height: '350',
+		    dataFormat: 'json',
+		    dataSource: {
+		      "chart": {
+		        "caption": "Comparison of Quarterly Revenue",
+		        "subCaption": "Harry's SuperMart",
+		        "xAxisname": "Quarter",
+		        "yAxisName": "Revenues (In USD)",
+		        "plotSpacePercent": "40",
+		        // using multiple themes
+		        "theme": "flat, water"
+		      },
+
+		      "categories": [{
+		        "category": [{
+		          "label": "Q1"
+		        }, {
+		          "label": "Q2"
+		        }, {
+		          "label": "Q3"
+		        }, {
+		          "label": "Q4"
+		        }]
+		      }],
+
+		      "dataset": [{
+		        "seriesname": "Previous Year",
+		        "data": [{
+		          "value": "10000"
+		        }, {
+		          "value": "11500"
+		        }, {
+		          "value": "12500"
+		        }, {
+		          "value": "15000"
+		        }]
+		      }, {
+		        "seriesname": "Current Year",
+		        "data": [{
+		          "value": "25400"
+		        }, {
+		          "value": "29800"
+		        }, {
+		          "value": "21800"
+		        }, {
+		          "value": "26800"
+		        }]
+		      }]
+		    }
+		    
+			}).render();
+		});
+	</script>
+</head>
+<body>
+<div id="chartContainer">FusionCharts will render here</div>
+</body>
+</html>
