@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FusionCharts | Adding Charts in Tooltips</title>
+	<!-- adding FusionCharts package js files -->
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js"></script>
+
+	<script type="text/javascript">
+		FusionCharts.ready(function() {
+		  var reportCardChart = new FusionCharts({
+		    type: 'heatmap',
+		    renderAt: 'chartContainer',
+		    width: chart_width,
+		    height: chart_height,
+		    dataFormat: 'json',
+		    dataSource: {
+		      "chart": {
+		        "theme": "fint",
+		        "caption": "Students Report Card",
+		        "xAxisName": "Students",
+		        "yAxisName": "Class Name",
+		        "showplotborder": "1",
+		        "PlotfillAlpha": "0",
+		        "plotTooltext": "<div id='nameDiv' style='background:#ffffff'></div>",
+		        "drawCustomLegendIcon": "1",
+		        "legendBgAlpha": "0",
+		        "legendIconSides": "3",
+		        "canvasTopMargin": "50",
+		        "canvasBottomMargin": "20",
+		        "interactiveLegend": "0",
+		        "labelYPadding": "20",
+		        "valueFontColor": "#ffffff",
+		       	"LabelPadding": "10",
+		        "showLegend": "1",
+		        "legendBorderAlpha": "0",
+				"xAxisLabelsOnTop": "1",
+				"showBorder": "1"
+		      },
+
+		      "annotations": {
+		        "width": "900",
+		        "height": "550",
+		        "autoScale": "1",
+
+		        "groups": [{
+		          "id": "student-images",
+		          "items": annotation
+		        }]
+		      },
+
+			 "dataset": [{
+		        "data": actualData
+		      }],
+		      "colorrange": {
+		        "gradient": "0",
+		        "minValue": "0",
+		        "code": "#e24b1a",
+		        "startLabel": "Poor",
+		        "alpha": "0",
+		        "endLabel": "Good",
+		        "color": [{
+		          "code": "#FF4246",
+		          "minValue": "1",
+		          "maxValue": "5",
+		          "alpha": "0",
+		          "label": "Bad"
+		        }, {
+		          "code": "#E3B40D",
+		          "minValue": "5",
+		          "maxValue": "8.5",
+		          "label": "Good"
+		        }, {
+		          "code": "#3D983A",
+		          "minValue": "8.5",
+		          "maxValue": "10",
+		          "label": "Excellent"
+		        }]
+		      }
+		    },
+
+		    events: {
+		      
+		      "dataPlotRollOver": function(evtObj, argObj) {
+		        var secondChartData = [];
+		        var caption = "";
+		        var subcaption = "";
+		        var selected_student = argObj.rowId + "_" + argObj.columnId;
+		        for (var i = 0; i < previousData.length; i++) {
+		          if (selected_student == previousData[i].id) {
+		            secondChartData = previousData[i].data;
+		            caption = "Last 5 weeks record of " + argObj.columnId + "";
+		            subcaption = "For Subject " + argObj.rowId + "";
+		            break;
+		          }
+		        }
+		        var dataDiv = document.getElementById('nameDiv');
+
+		        if (dataDiv != null) {
+		          console.log("rollover" + dataDiv);
+
+		          stuChart = new FusionCharts({
+		              type: 'column2d',
+		              renderAt: 'nameDiv',
+		              width: '300',
+		              height: '250',
+		              dataFormat: 'json',
+		              dataSource: {
+		                "chart": {
+		                  "caption": caption,
+		                  "subCaption": subcaption,
+		                  "yAxisName": "Marks",
+		                  "paletteColors": "#0075c2",
+		                  "bgColor": "#ffffff",
+		                  "showBorder": "0",
+		                  "showCanvasBorder": "0",
+		                  "usePlotGradientColor": "0",
+		                  "plotBorderAlpha": "10",
+		                  "placeValuesInside": "1",
+		                  "valueFontColor": "#ffffff",
+		                  "showAxisLines": "1",
+		                  "axisLineAlpha": "25",
+		                  "divLineAlpha": "10",
+		                  "alignCaptionWithCanvas": "0",
+		                  "showAlternateVGridColor": "0",
+		                  "captionFontSize": "14",
+		                  "subcaptionFontSize": "14",
+		                  "canvasTopMargin": "0",
+		                  "canvasBottomMargin": "0",
+		                  "subcaptionFontBold": "0",
+		                  "animation": "0"	
+		                },
+
+		                "data": modifySecondaryChart(secondChartData)
+
+		              }
+		            })
+		            .render();
+		        }
+
+
+
+		      },
+		      "dataPlotRollOut": function(evtObj, argObj) {
+		        var dataDiv = document.getElementById('nameDiv');
+		        if (dataDiv != null) {
+		        }
+
+		      }
+		    }
+		  }).render();
+
+		});
+
+		function unique(list) {
+		  var result = [];
+		  $.each(list, function(i, e) {
+		    if ($.inArray(e, result) == -1) result.push(e);
+		  });
+		  return result;
+		}
+
+		function modifySecondaryChart(p_data) {
+		  for (var i = 0; i < p_data.length; i++) {
+		    if (p_data[i].value <= 10 && p_data[i].value >= 8.6) {
+		      p_data[i]["color"] = "8EA85F";
+		    } else if (actualData[i].value <= 8.5 && actualData[i].value >= 5) {
+		      p_data[i]["color"] = "F2621B";
+		    } else {
+		      p_data[i]["color"] = "F3B719";
+		    }
+		  }
+		  return p_data;
+		}
+
+		var jsonData = [{
+		  "subject": "Psychology",
+		  "student": "Alison",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Ellen",
+		  "value": "8.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Francis",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "value": "9.3"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Catherine",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "9.7"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Mathew",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "8"
+		}, {
+		  "subject": "Psychology",
+		  "student": "Robert",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "5"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Alison",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Ellen",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "8.3",
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Francis",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "7.3",
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Catherine",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Mathew",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Robert",
+		  "value": "7.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Alison",
+		  "value": "9.0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Ellen",
+		  "value": "8.6",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Francis",
+		  "value": "7.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Catherine",
+		  "value": "8.4",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Mathew",
+		  "value": "9.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Robert",
+		  "value": "3.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Alison",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Ellen",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Francis",
+		  "value": "9.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Catherine",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Mathew",
+		  "value": "4.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Robert",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Walter",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Walter",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Walter",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Walter",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Trisha",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "2"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Browne",
+		  "value": "8.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "6"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Stewart",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9.3"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Norman",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "9.7"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Lawson",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "7"
+		  }],
+		  "value": "8"
+		}, {
+		  "subject": "Psychology",
+		  "student": "Gallon",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Trisha",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Browne",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "8.3",
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Stewart",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "6"
+		  }],
+		  "value": "7.3",
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Norman",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "6"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Lawson",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "2"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "6"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Gallon",
+		  "value": "7.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Trisha",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Browne",
+		  "value": "8.6",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Stewart",
+		  "value": "7.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Norman",
+		  "value": "8.4",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Lawson",
+		  "value": "9.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Gallon",
+		  "value": "3.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "2"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "7"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Trisha",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Browne",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "6"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Stewart",
+		  "value": "9.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "8"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Norman",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Lawson",
+		  "value": "4.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Gallon",
+		  "value": "9.1",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Psychology",
+		  "student": "Fuister",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Business Studies",
+		  "student": "Fuister",
+		  "value": "9.2",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Information Technology",
+		  "student": "Fuister",
+		  "value": "9.3",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+		}, {
+		  "subject": "Physical Education",
+		  "student": "Fuister",
+		  "value": "8.8",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Alison",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "2"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Ellen",
+		  "value": "8.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Francis",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9.3"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Catherine",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9.7"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Mathew",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "8"
+		}, {
+		  "subject": "Maths",
+		  "student": "Robert",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Maths",
+		  "student": "Walter",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "8"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Maths",
+		  "student": "Trisha",
+		  "value": "8.7",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "5"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "7"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "4"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Browne",
+		  "value": "8.5",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "9"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "7"
+		  }],
+		  "showValue": "0"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Stewart",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "9.3"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Norman",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "7"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9.7"
+
+		}, {
+		  "subject": "Maths",
+		  "student": "Lawson",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "3"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "6"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "8"
+		}, {
+		  "subject": "Maths",
+		  "student": "Gallon",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "8"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "4"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "2"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "9"
+		  }],
+		  "value": "9"
+		}, {
+		  "subject": "Maths",
+		  "student": "Fuister",
+		  "showValue": "0",
+		  "previousrecord": [{
+		    "label": "Sep 14",
+		    "value": "6"
+		  }, {
+		    "label": "Sep 21",
+		    "value": "9"
+		  }, {
+		    "label": "Sep 28",
+		    "value": "5"
+		  }, {
+		    "label": "Oct 5",
+		    "value": "3"
+		  }, {
+		    "label": "Oct 12",
+		    "value": "3"
+		  }],
+		  "value": "9"
+		}]
+		var actualData = [];
+		var previousData = [];
+
+		/*Get actual data*/
+		for (var i = 0; i < jsonData.length; i++) {
+		  var heatmapData = new Object();
+		  heatmapData.rowid = jsonData[i].subject;
+		  heatmapData.columnid = jsonData[i].student;
+		  heatmapData.value = jsonData[i].value;
+		  heatmapData.showValue = 0;
+		  actualData.push(heatmapData);
+		  var previousObject = new Object();
+		  previousObject.id = jsonData[i].subject + "_" + jsonData[i].student;
+		  previousObject.data = jsonData[i].previousrecord;
+		  previousData.push(previousObject);
+		}
+
+		var studentList = [];
+		var subjectList = [];
+		var annotation = [];
+		var chart_width = 0;
+		var chart_height = 0;
+		for (var i = 0; i < actualData.length; i++) {
+		  subjectList.push(actualData[i].columnid);
+		  studentList.push(actualData[i].rowid);
+		}
+
+		studentList = unique(studentList);
+		subjectList = unique(subjectList);
+		
+		chart_width = 480;
+		chart_height = 500;
+		console.log(chart_width);
+		for (var i = 0; i < actualData.length; i++) {
+		  var xValue = subjectList.indexOf(actualData[i].columnid);
+		  var yValue = studentList.indexOf(actualData[i].rowid);
+		  var annotationObject = new Object();
+		  annotationObject.type = "image";
+		  
+		  if (actualData[i].value <= 10 && actualData[i].value >= 8.6) {
+		    // Excellent
+		    var xscale = 27;
+		    var yscale = 27;
+		    var xdiff = 8;
+		    var ydiff = 7;
+		    var xpos = xscale + xdiff;
+		    var ypos = yscale + ydiff;
+		    if (subjectList.length * 100 > chart_width) {
+		      xscale = Math.floor(((chart_width / subjectList.length) * xscale / 100));
+		      yscale = Math.floor(((chart_width / subjectList.length) * yscale / 100));
+
+		      xdiff = Math.floor((xscale * xdiff) / 27);
+		      ydiff = Math.floor((yscale * ydiff) / 27);
+		      xpos = xscale + xdiff;
+		      ypos = yscale + ydiff;
+		    }
+		    annotationObject.url = "assets/images/green.png";
+		    annotationObject.xScale = xscale;
+		    annotationObject.yScale = yscale;
+		    annotationObject.x = "$xaxis.label." + xValue + ".x - " + xpos + "";
+		    annotationObject.y = "$yaxis.label." + yValue + ".y - " + ypos + "";
+
+		  } else if (actualData[i].value <= 8.5 && actualData[i].value >= 5) {
+
+		    //Good
+
+		    var xscale = 27;
+		    var yscale = 27;
+		    var xdiff = 8;
+		    var ydiff = 7;
+		    var xpos = xscale + xdiff;
+		    var ypos = yscale + ydiff;
+		    if (subjectList.length * 100 > chart_width) {
+		      xscale = Math.floor(((chart_width / subjectList.length) * xscale / 100));
+		      yscale = Math.floor(((chart_width / subjectList.length) * yscale / 100));
+
+		      xdiff = Math.floor((xscale * xdiff) / 27);
+		      ydiff = Math.floor((yscale * ydiff) / 27);
+		      xpos = xscale + xdiff;
+		      ypos = yscale + ydiff;
+		    }
+		    annotationObject.url = "assets/images/orange.png";
+		    annotationObject.xScale = xscale;
+		    annotationObject.yScale = yscale;
+		    annotationObject.x = "$xaxis.label." + xValue + ".x - " + xpos + "";
+		    annotationObject.y = "$yaxis.label." + yValue + ".y - " + ypos + "";
+
+		  } else {
+		    //Bad
+
+		    var xscale = 27;
+		    var yscale = 27;
+		    var xdiff = 8;
+		    var ydiff = 7;
+		    var xpos = xscale + xdiff;
+		    var ypos = yscale + ydiff;
+		    if (subjectList.length * 100 > chart_width) {
+		      xscale = Math.floor(((chart_width / subjectList.length) * xscale / 100));
+		      yscale = Math.floor(((chart_width / subjectList.length) * yscale / 100));
+
+		      xdiff = Math.floor((xscale * xdiff) / 27);
+		      ydiff = Math.floor((yscale * ydiff) / 27);
+		      xpos = xscale + xdiff;
+		      ypos = yscale + ydiff;
+		    }
+		    annotationObject.url = "assets/images/red.png";
+		    annotationObject.xScale = xscale;
+		    annotationObject.yScale = yscale;
+		    annotationObject.x = "$xaxis.label." + xValue + ".x - " + xpos + "";
+		    annotationObject.y = "$yaxis.label." + yValue + ".y - " + ypos + "";
+		  }
+		  annotation.push(annotationObject);
+
+		}
+		// User icon
+		var topper = [];
+		for (var i = 0; i < subjectList.length; i++) {
+		  var image_index = 0;
+		  var annotationObject = new Object();
+		  annotationObject.type = "image";
+
+		  annotationObject.url = "assets/images/round-" + Math.floor((Math.random() * 5) + 1) + ".png";
+		  annotationObject.x = "$xaxis.label." + i + ".x - 24";
+		  annotationObject.y = "$xaxis.label." + i + ".y - 55";
+		  //  annotation.push(annotationObject);   
+		  var topperObject = new Object();
+		  topperObject.studentname = subjectList[i];
+		  var total = 0;
+		  for (var j = 0; j < actualData.length; j++) {
+		    if (actualData[j].columnid == subjectList[i]) {
+		      total += parseFloat(actualData[j].value);
+		    }
+		  }
+		  topperObject.total = total;
+		  topper.push(topperObject);
+		}
+		topper.sort(function(a, b) {
+		  return (a.total > b.total) ? 1 : ((b.total > a.total) ? -1 : 0);
+		});
+		var topper_name = topper[topper.length - 1].studentname;
+		console.log(topper);
+		for (var i = 0; i < actualData.length; i++) {
+		  if (actualData[i].columnid == topper_name) {
+		    actualData[i]["color"] = "6DA81E";
+		    actualData[i]["alpha"] = 40;
+		    console.log(actualData[i]);
+		  }
+		}
+		var legends = [ //Legends
+		  {
+		    "type": "image",
+		    "url": "assets/images/red.png",
+		    "x": "$legendStartX+2",
+		    "y": "$legendStartY+3",
+		    "xScale": "08",
+		    "yScale": "08",
+		  }, {
+		    "type": "image",
+		    "url": "assets/images/green.png",
+		    "x": "$legendStartX+113",
+		    "y": "$legendStartY+3",
+		    "xScale": "08",
+		    "yScale": "08",
+		  }, {
+		    "type": "image",
+		    "url": "assets/images/orange.png",
+		    "x": "$legendStartX+54",
+		    "y": "$legendStartY+3",
+		    "xScale": "08",
+		    "yScale": "08",
+		  }
+		];
+		for (var i = 0; i < legends.length; i++) {
+		  annotation.push(legends[i]);
+		}	
+	</script>
+</head>
+<body>
+	<center>
+		<div id="chartContainer">FusionCharts will render here</div>
+	</center>
+</body>
+</html>
