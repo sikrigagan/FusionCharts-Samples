@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>FusionCharts | Exporting Chart to Image at Client using Canvg</title>
+	<script type="text/javascript" language="Javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<script type="text/javascript" language="Javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+	
+	<script src="js/rgbcolor.js"></script>
+	<script src="js/StackBlur.js"></script>
+	<script src="js/canvg.js"></script>
+	<script type="text/javascript">
+		
+		FusionCharts.ready(function() {
+	  		var win = window,
+	    	doc = win.document,
+		    revenueChart = new FusionCharts({
+		      type: 'line',
+		      renderAt: 'chart-container',
+		      width: '450',
+		      height: '300',
+		      dataFormat: 'json',
+		      dataSource: {
+		        "chart": {
+		          "caption": "Split of Revenue by Product Categories",
+		          "subCaption": "Last year",
+		          "numberPrefix": "$",
+		          "bgColor": "#ffffff",
+		          "showBorder": "0",
+		          "decimals": "0",
+		          "captionFontSize": "14",
+		          "subcaptionFontSize": "14",
+		          "subcaptionFontBold": "0",
+		          "toolTipColor": "#ffffff",
+		          "toolTipBorderThickness": "0",
+		          "toolTipBgColor": "#000000",
+		          "toolTipBgAlpha": "80",
+		          "toolTipBorderRadius": "2",
+		          "toolTipPadding": "5",
+		          "showValues": "0"
+		        },
+		        "data": [{
+		          "label": "Food",
+		          "value": "28504"
+		        }, {
+		          "label": "Apparels",
+		          "value": "14633"
+		        }, {
+		          "label": "Electronics",
+		          "value": "10507"
+		        }, {
+		          "label": "Household",
+		          "value": "4910"
+		        }]
+		      }
+		    }).render();
+
+	  revenueChart.addEventListener("rendered", function(e) {
+	    var exportbtn = doc.getElementById('export-canvas'),
+	      savebtn = doc.getElementById('export-image'),
+	      canvascard = doc.getElementById("canvascard"),
+	      canvas = doc.getElementById("chart-canvas"),
+	      revenueChart = e.sender;
+    	  canvas.setAttribute("width", revenueChart.width + "px");
+		  canvas.setAttribute("height", revenueChart.height + "px");
+		  canvas.style.display = "block";
+		  exportbtn.removeAttribute('disabled');
+		  exportbtn.onclick = function() {
+		  parent.document.getElementById('canvascard').style.height = '800px';
+		  canvascard.style.display = "inline-block";
+		  canvg(canvas, revenueChart.getSVGString(), {
+		  ignoreMouse: true,
+		  ignoreAnimation: true
+      });
+
+      savebtn.removeAttribute('disabled');
+      exportbtn.innerHTML = "Redraw to Canvas";
+      
+      };
+	
+      savebtn.onclick = function() {
+	      win.location.href = canvas.toDataURL().replace("image/png", "image/octet-stream;content-disposition:attachment; filename=fusioncharts");
+	    };
+	  });
+	});
+
+	</script>
+</head>
+<body>
+
+<div class=sxs id=chartcard style=text-align:centre>
+  <div id=chart-container class=chart></div>
+  <p>
+    <button id=export-canvas disabled onclick="resize();">Draw to Canvas</button>
+  </p>
+</div>
+<div class=sxs id=canvascard style="display:none;text-align:centre">
+  <div>
+    <canvas id=chart-canvas />
+  </div>
+  <p>
+    <button id=export-image disabled>Save as Image</button>
+  </p>
+</div>
+
+</body>
+</html>
