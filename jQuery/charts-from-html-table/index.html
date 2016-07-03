@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>FusionCharts | Creating Charts from HTML Table</title>
+    <!-- including jQuery -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    
+    <!-- including FusionCharts package JS files -->
+    <script src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js"></script>
+    
+    <!-- including FusionCharts jQuery plugin -->
+    <script src="js/fusioncharts-jquery-plugin.js"></script>
+    
+    <!-- including chart object created in JS -->
+    <script defer src="js/table2chart.js"></script>
+    
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <table id="dataTable" style="width: 300px;">
+        <tbody>
+            <tr>
+                <th></th>
+                <th class="center-align">2014</th>
+                <th class="center-align">2015</th>
+            </tr>
+            <tr>
+                <td>January</td>
+                <td class="center-align">400</td>
+                <td class="center-align">800</td>
+            </tr>
+            <tr>
+                <td>February</td>
+                <td class="center-align">600</td>
+                <td class="center-align">320</td>
+            </tr>
+            <tr>
+                <td>March</td>
+                <td class="center-align">900</td>
+                <td class="center-align">1300</td>
+            </tr>
+            <tr>
+                <td>April</td>
+                <td class="center-align">430</td>
+                <td class="center-align">650</td>
+            </tr>
+            <tr>
+                <td>May</td>
+                <td class="center-align">350</td>
+                <td class="center-align">650</td>
+            </tr>
+            <tr>
+                <td>June</td>
+                <td class="center-align">1300</td>
+                <td class="center-align">900</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td class="center-align">430</td>
+                <td class="center-align">760</td>
+            </tr>
+            <tr>
+                <td>August</td>
+                <td class="center-align">490</td>
+                <td class="center-align">550</td>
+            </tr>
+            <tr>
+                <td>September</td>
+                <td class="center-align">480</td>
+                <td class="center-align">640</td>
+            </tr>
+            <tr>
+                <td>October</td>
+                <td class="center-align">450</td>
+                <td class="center-align">650</td>
+            </tr>
+            <tr>
+                <td>November</td>
+                <td class="center-align">1300</td>
+                <td class="center-align">900</td>
+            </tr>
+            <tr>
+                <td>December</td>
+                <td class="center-align">600</td>
+                <td class="center-align">820</td>
+            </tr>
+        </tbody>
+    </table>
+    <input style="margin: 10px 10px 10px 0;" type="button" id="convert" value="Create Chart" />
+    <div id="chart-container"></div>
+    </center>
+</body>
+</html>
