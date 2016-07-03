@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FusionCharts | Changing Data Plot Color Using Data Passed</title>
+	<!-- Using Theme Manager to configure dynamic anchors background color based on value passed for that data plot -->
+
+	<!-- including FusionCharts package JS files -->
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+
+	<!-- including theme file -->
+	<script type="text/javascript" src="js/dataVal.js"></script>
+
+	<script type="text/javascript">
+		FusionCharts.ready(function() {
+		  var dynThemeChart = new FusionCharts({
+		    type: 'line',
+		    id: 'chartId',
+		    renderAt: 'chartContainer',
+		    width: '650',
+		    height: '450',
+		    dataFormat: 'json',
+		    dataSource: {
+		      "chart": {
+		        "caption": "Monthly Revenue",
+		        "subCaption": "For 2015",
+		        "xAxisName": "Month",
+		        "yAxisName": "Amount (In USD)",
+		        "numberPrefix": "$",
+		        "theme": "dataVal"
+		      },
+		      "data": [{
+		        "label": "Jan",
+		        "value": "420000"
+		      }, {
+		        "label": "Feb",
+		        "value": "810000"
+		      }, {
+		        "label": "Mar",
+		        "value": "720000"
+		      }, {
+		        "label": "Apr",
+		        "value": "550000"
+		      }, {
+		        "label": "May",
+		        "value": "910000"
+		      }, {
+		        "label": "Jun",
+		        "value": "510000"
+		      }, {
+		        "label": "Jul",
+		        "value": "680000"
+		      }, {
+		        "label": "Aug",
+		        "value": "620000"
+		      }, {
+		        "label": "Sep",
+		        "value": "610000"
+		      }, {
+		        "label": "Oct",
+		        "value": "490000"
+		      }, {
+		        "label": "Nov",
+		        "value": "900000"
+		      }, {
+		        "label": "Dec",
+		        "value": "730000"
+		      }],
+		      "trendlines": {
+		        "line": [{
+		          "startValue": "662500",
+		          "displayValue": "Avearge{br}Revenue",
+		          "valueOnRight": "1",
+		          "color": "#1C90F3",
+		          "dashed": "1",
+		          "thickness": "1.5"
+		        }]
+		      }
+		    }
+		  }).render();
+		});
+	</script>
+</head>
+<body>
+	<center>
+		<div id="chartContainer"></div>	
+	</center>
+</body>
+</html>
