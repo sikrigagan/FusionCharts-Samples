@@ -13,4 +13,5 @@ $dbname="dbname="; // name of database
 $dbuser="user="; // postgres database user
 $dbpwd="password="; // postgres database user password
 ```
+	+ Please make sure you have enabled `extension=php_pdo_pgsql.dll` and `extension=php_pgsql.dll` in your `php.ini` configuration file.
 + Run `index.php` on your local XAMPP/WAMP Server.
