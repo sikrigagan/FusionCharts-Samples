@@ -13,4 +13,4 @@ $dbname="dbname="; // name of database
 $dbuser="user="; // postgres database user
 $dbpwd="password="; // postgres database user password
 ```
-+ Run `index.php` at your local XAMPP/WAMP Server.
++ Run `index.php` on your local XAMPP/WAMP Server.
