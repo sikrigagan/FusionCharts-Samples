@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>FusionCharts | Rendering Charts using jQuery Mobile UI</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	
+	<!-- jQuery mobile css file -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	
+	<!-- including jQuery core and mobile JS files -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<!-- including FusionCharts core package files -->
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js" ></script> 
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js" ></script>
+
+	<!-- including FusionCharts jQuery plugin --> 
+	<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.jqueryplugin.js" ></script> 
+</head> 
+<body> 
+	<div data-role="page" data-theme="a">
+		<div data-role="header">
+			<a href="https://github.com/sikrigagan/FusionCharts-Samples/tree/master/jQuery" data-icon="home" class="ui-btn-left">Back to GitHub</a >
+			<h1>Harry's SuperMart - Monthly Revenue</h1>
+			<a href="http://www.fusioncharts.com/dev/" data-icon="arrow-r" class="ui-btn-right" data-iconpos="right">Resources</a >
+		</div>
+		<div data-role="content" data-theme="d">
+			<div id="chartContainer">Mobile Chart will load here!</div>
+			<!-- creating chart object -->
+			<script type="text/javascript">
+				$(document).ready(function () {
+					$("#chartContainer").insertFusionCharts({
+						type: "column2d",
+						width: "100%",
+						height: "400",
+						id: "mobilechart",
+						dataFormat: "jsonurl",
+						dataSource: "data.json"
+					});
+				});
+			</script >
+		</div>
+	</div>
+</body>
+</html>
