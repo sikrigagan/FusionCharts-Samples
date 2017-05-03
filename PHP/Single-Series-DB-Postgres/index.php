@@ -44,8 +44,6 @@
 
 <?php
   
-  pg_query($dbconn, "SELECT DISTINCT browser, shareval FROM browsershare; ");
-
   $result = pg_query($dbconn, "SELECT DISTINCT browser, shareval FROM browsershare; ") or exit("Error with quering database");
 
   if ($result) {
